@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div>
+
+          <br>
+<br>
+
+<br>
+
+<br>
+
+<br>
+          <center>
+        <a href="https://fontmeme.com/fancy-fonts/"><img src="https://fontmeme.com/permalink/171117/0b25ddd0112c1292d14b072ac892d432.png" alt="fancy-fonts" border="0"></a>
+
+      </center>
+<br>
+<br>
+
+<center><a href="https://fontmeme.com/fancy-fonts/"><img src="https://fontmeme.com/permalink/171117/dae339941f84d2981da503235e208155.png" alt="fancy-fonts" border="0"></a>
+</center>
+<br>
+            <img src="https://www.thesun.co.uk/wp-content/uploads/2017/07/nintchdbpict000354937155.jpg?strip=all&w=579" alt="First Slide" style="width:15%;">
+      
+            <img src="http://ksassets.timeincuk.net/wp/uploads/sites/55/2017/09/narcos_press_1000-920x603.jpg" alt="Second Slide" style="width:25%;">
+        
+            <img src="https://www.whats-on-netflix.com/wp-content/uploads/2017/09/fuller-house-season-3-part-2-770x433.png" alt="Third Slide" style="width:25%;">
+        
+            <img src="https://i0.wp.com/www.projectcasting.com/wp-content/uploads/2015/08/Unbreakable-Kimmy-Schmidt-Season-2.jpg?resize=665%2C374" alt="First Slide" style="width:25%;">
+    
+
+
+          <h2>Guess the word:</h2>
+          <p id="right"></p>
+          <p>
+            <span id="remain">12</span> Guesses Remaining
+          </p>
+          <p id="wrong"></p>
+        </div>
+      </div>
+    </div>
+    <style type="text/css">
+      #right {
+        letter-spacing: 3px;
+      }
+    </style>
+
+    <script type="text/javascript">
+      var words = ['strangerthings', 'fullerhouse', 'unbreakablekimmyschmidt','narcos'];
+      var game = {
+        guessed: [],
+        left: 12,
+        start: function() {
+          this.complete = false;
+          this.word = words[Math.floor(Math.random() * words.length)];
+          this.$right = document.getElementById('right');
+          this.$wrong = document.getElementById('wrong');
+          this.$remain = document.getElementById('remain');
+          this.$right.innerHTML = '_'.repeat(this.word.length);
+        },
+        guess: function(letter) {
+          if (this.left > 0 && this.complete != true) {
+            if (this.word.indexOf(letter) > -1 || this.guessed.indexOf(letter) > -1) {
+              this.right(letter);
+            } else {
+              this.wrong(letter);
+            }
+          }
+        },
+        right: function(letter) {
+          for(var i = 0; i < this.word.length; i++) {
+            if (this.word[i] == letter) {
+              var word = this.$right.innerHTML.split('');
+              word[i] = letter;
+              this.$right.innerHTML = word.join('');
+            }
+          }
+          if (this.$right.innerHTML.indexOf('_') < 0) {
+            alert('you win!');
+            this.complete = true;
+          }
+        },
+        wrong: function(letter) {
+          this.guessed.push(letter);
+          this.$wrong.innerHTML += ' ' + letter;
+          this.left--;
+          this.$remain.innerHTML = this.left;
+          if (this.left < 1) {
+            alert('you lose! '+ this.word);
+            this.complete = true;
+          }
+        }
+      };
+
+      game.start();
+      document.onkeyup = function(event) {
+        var letter = String.fromCharCode(event.keyCode).toLowerCase();
+        game.guess(letter);
+      };
+    </script>
+  </body>
+</html>
